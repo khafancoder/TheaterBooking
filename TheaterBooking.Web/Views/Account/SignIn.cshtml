@@ -1,0 +1,44 @@
+﻿@model TheaterBooking.Web.ViewModels.LogOnModel
+@{
+    ViewBag.Title = "ورود";
+}
+<h2>
+    ورود به حساب کاربری</h2>
+<div>
+    @{
+        using (Html.BeginForm())
+        {
+        <div class="editor-label">
+            نام کاربری
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(o => o.UserName, new { style = "width:200px" })
+        </div>
+        <div class="editor-label">
+            کلمه عبور
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(o => o.Password, new { style = "width:200px" })
+        </div>
+        @Html.CheckBoxFor(o => o.RememberMe)
+        @Html.Label("RememberMe", "مرا به خاطر بسپار")
+        <ul class="controlButtonsSet">
+            <li><a href="javascript:void(0)" id="lnkSignin">ورود</a></li>
+        </ul>
+        
+        <p>
+            @Html.ValidationSummary(true)
+        </p>
+        }
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#lnkSignin").click(function () {
+            $($(this).parents("form")[0]).submit();
+        });
+
+        $("#lnkSignin").Iconize("ui-icon-check");
+
+    });
+</script>

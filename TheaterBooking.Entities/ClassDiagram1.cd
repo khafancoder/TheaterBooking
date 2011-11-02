@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TheaterBooking.Entities.Reservation">
+    <Position X="4.5" Y="5.5" Width="1.5" />
+    <AssociationLine Name="ShowTime" Type="TheaterBooking.Entities.ShowTime">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.089" Y="0.865" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAEIAAABAAAAgEAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Reservation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ShowTime" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TheaterBooking.Entities.Salon">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <AssociationLine Name="SeatRows" Type="TheaterBooking.Entities.SalonSeatLayout" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.562" Y="3.509" />
+        <Point X="0.562" Y="4.797" />
+        <Point X="1.75" Y="4.797" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAgAAAAAAAAAAAAAACAAACIAAAAAQ=</HashCode>
+      <FileName>Salon.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="SeatRows" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="TheaterBooking.Entities.SalonSeatLayout">
+    <Position X="1.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAgAAgAAAAAAAIAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>SalonSeatLayout.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Salon" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TheaterBooking.Entities.Show">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgAAAAAAAAgAEAAkAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Show.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ShowTimes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="TheaterBooking.Entities.ShowTime">
+    <Position X="4.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAIAIAAEAAACAAAAAAAQAAA=</HashCode>
+      <FileName>ShowTime.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Salon" />
+      <Property Name="Show" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

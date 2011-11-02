@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SharangTeathre - @ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/MainTheme.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery/jquery.tinyscrollbar.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/extensions.js")" type="text/javascript"></script>
+    @RenderSection("Head", false)
+</head>
+<body>
+    <div id="tm-container">
+        <div id="tm-header">
+            <div id="tm-header-bar">
+                <a href="@Url.Action("Index", "Home")">
+                    <div style="width: 100px; height: 100%; display: block; float: right;">
+                    </div>
+                </a>
+                <div id="tm-header-bar-container">
+                    <div id="tm-header-bar-content">
+                        @{Html.RenderPartial("_UserPanel");}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tm-main">
+            <div id="tm-main-content">
+                <div class="marginBox">
+                    @RenderBody()
+                </div>
+            </div>
+            <div id="tm-main-menu">
+                <div id="tm-main-menu-rightbg">
+                </div>
+                <div id="tm-main-menu-content">
+                    <ul id="mainmenu">
+                        <a href="@(Url.Action("Index", "Home"))">
+                            <li id="mainmenu-home"></li>
+                        </a><a href="@Url.Action("Manage", "Show")">
+                            <li id="mainmenu-archive"></li>
+                        </a><a href="@Url.Action("Show", "Page", new { Id = "About_Us" })">
+                            <li id="mainmenu-about"></li>
+                        </a></a><a href="@Url.Action("Show", "Page", new { Id = "Contact_Us" })">
+                            <li id="mainmenu-contact"></li>
+                        </a><a href="@Url.Action("Show", "Page", new { Id = "News" })">
+                            <li id="mainmenu-news"></li>
+                        </a>
+                    </ul>
+                </div>
+                <div id="tm-main-menu-leftbg">
+                </div>
+            </div>
+        </div>
+        <div id="tm-footer">
+            <div id="tm-footer-box">
+                تمامی حقوق سایت برای شرنگ محفوظ میباشد
+                <br />
+                Copyright © 2011 - All rights reserved
+            </div>
+        </div>
+    </div>
+</body>
+</html>

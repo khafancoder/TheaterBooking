@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "خانه";
+    TheaterBooking.Entities.Show activeShow = ViewBag.ActiveShow;
+}
+
+@section Head
+{
+    <link type="text/css" href="@Url.Content("~/Content/jquery.jscrollpane.css")" rel="stylesheet"/>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.mousewheel.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jscrollpane.min.js")"></script>
+    <style>
+        .marginBox
+        {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .homepanel
+        {
+            width: 100%;
+            height: 100%;
+            background-color: #222222;
+        }
+        
+        .poster
+        {
+            float: right;
+            width: 520px;
+            height: 598px;
+        }
+        .info
+        {
+            color: #ffffff;
+            background-color: #222222;
+            width: 280px;
+            float: right;
+        }
+        
+        
+        .infotitle
+        {
+            color: #ffffff;
+            font-family: Arial;
+            font-weight: normal;
+            font-size: 17pt;
+            height: 50px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .infocontent
+        {
+            margin-right: 15px;
+        }
+        
+        .infodesc
+        {
+            height: 450px;
+            overflow: auto;
+        }
+        
+        .infolinks
+        {
+            float: left;
+            margin-left: 20px;
+            margin-top: 30px;
+        }
+        .infolinks a
+        {
+            font-size: 14pt;
+            font-family: Arial;
+            text-decoration: none;
+            font-weight: normal;
+            color: #ffc000;
+        }
+        
+        .infolinks a:hover
+        {
+            color: #FFCD64;
+        }
+    </style>
+}
+@{
+    if (activeShow != null)
+    {
+
+    <div class="homepanel">
+        <div class="info">
+            <div class="infocontent">
+                <div class="infotitle">
+                    @activeShow.Title
+                </div>
+                <div class="infodesc">
+                    <div style="margin-right: 25px;width:230px;">
+                        @Html.Raw(activeShow.Description)
+                    </div>
+                </div>
+                <div class="infolinks">
+                    <a href="@Url.Action("Reserve", "Reserve", new { Id = @activeShow.ShowId })">
+                  &gt;&gt; انتخاب روز - صندلی
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="poster">
+            <img style="width:100%;height:100%;" src="@Url.Content("~/" + activeShow.ImageUrl)" />
+        </div>
+    </div>
+
+    }
+    else
+    {
+    <h2>
+        هیچ نمایش فعالی وجود ندارد، لطفا به مدیریت سایت مراجعه فرمایید</h2>
+    }
+}
+<script type="text/javascript">
+    $(function () {
+
+        $('.infodesc').jScrollPane({ showArrows: true });
+
+    });
+
+</script>

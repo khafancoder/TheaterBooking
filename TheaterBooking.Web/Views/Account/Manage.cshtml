@@ -1,0 +1,71 @@
+﻿@model  IEnumerable<MembershipUser> 
+@{
+    ViewBag.Title = "مدیریت کاربران";
+}
+<h2>
+    مدیریت کاربران
+</h2>
+<div>
+    <ul class="controlButtonsSet">
+        <li><a href="@Url.Action("Create")" id="lnkAdd">کاربر جدید</a></li>
+    </ul>
+    <table class="defaultList">
+        <thead>
+            <tr>
+                <th style="width: 300px;">
+                    نام کاربری
+                </th>
+                <th style="width: 100px;">
+                    پست الکترونیک
+                </th>
+                <th style="width: 100px;">
+                    تاریخ ایجاد
+                </th>
+                <th style="width: 100px;">
+                    سطح دسترسی
+                </th>
+                <th class="controlColumn">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{bool even = true;}
+            @foreach (var item in Model)
+            {
+                even = !even;
+                <tr class='@(even ? "alt" : "")'>
+                    <td>
+                        <b>@item.UserName
+                        </b>
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.CreationDate.ToPersian()
+                    </td>
+                    <td>
+                        @(Roles.IsUserInRole(@item.UserName, "admin") ? "ادمین" : "معمولی")
+                    </td>
+                    <td align="center">
+                        <a class="ptr_row_edit" href="@Url.Action("Edit", new { Id = @item.UserName })">ویرایش</a>
+                        <a class="ptr_row_delete" href="@Url.Action("Delete", new { Id = @item.UserName })">
+                            حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#lnkAdd").Iconize("ui-icon-plus");
+        $(".ptr_row_edit").Iconize("ui-icon-pencil");
+        $(".ptr_row_delete").Iconize("ui-icon-trash");
+
+
+        $(".ptr_row_delete").click(function () {
+            return (confirm("آیا مطمئنید ؟"))
+        });
+    });
+</script>

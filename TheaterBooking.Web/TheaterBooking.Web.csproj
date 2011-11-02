@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E8EA5E5B-3A8D-403E-826E-ABF913C3D13C}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TheaterBooking.Web</RootNamespace>
+    <AssemblyName>TheaterBooking.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\..\..\Desktop\NHibernate-3.1.0.GA-bin\Required_For_LazyLoading\Castle\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\..\..\..\Desktop\NHibernate-3.1.0.GA-bin\Required_Bins\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\..\..\..\Desktop\NHibernate-3.1.0.GA-bin\Required_Bins\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\..\..\..\..\Desktop\NHibernate-3.1.0.GA-bin\Required_For_LazyLoading\Castle\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\..\..\..\..\Desktop\Ninject-2.2.0.0\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages" />
+    <Reference Include="System.Web.Helpers" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\SalonController.cs" />
+    <Compile Include="Controllers\ReserveController.cs" />
+    <Compile Include="Controllers\CustomControls\DateSelectorController.cs" />
+    <Compile Include="Controllers\ShowTimeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShowController.cs" />
+    <Compile Include="Helpers\CustomControlsHelper.cs" />
+    <Compile Include="Helpers\CKEditorHelper.cs" />
+    <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Utils\AdaptedCultureInfo.cs" />
+    <Compile Include="Utils\DynamicJSON.cs" />
+    <Compile Include="ViewModels\AccountModels.cs" />
+    <Compile Include="NinjectControllerFactory.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="NinjectDefaultModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ReserveModels.cs" />
+    <Compile Include="ViewModels\ShowTimeModels.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Images\ajax-loader.gif" />
+    <Content Include="Content\Images\basic_arrow_down.png" />
+    <Content Include="Content\Images\basic_arrow_up.png" />
+    <Content Include="Content\Images\menu-about-h.png" />
+    <Content Include="Content\Images\menu-about.png" />
+    <Content Include="Content\Images\menu-archive-h.png" />
+    <Content Include="Content\Images\menu-archive.png" />
+    <Content Include="Content\Images\menu-contact-h.png" />
+    <Content Include="Content\Images\menu-contact.png" />
+    <Content Include="Content\Images\menu-home-h.png" />
+    <Content Include="Content\Images\menu-home.png" />
+    <Content Include="Content\Images\menu-news-h.png" />
+    <Content Include="Content\Images\menu-news.png" />
+    <Content Include="Content\Images\menu-reserve-h.png" />
+    <Content Include="Content\Images\menu-reserve.png" />
+    <Content Include="Content\Images\menubg.png" />
+    <Content Include="Content\Images\toplogo.png" />
+    <Content Include="Content\jquery.jscrollpane.css" />
+    <Content Include="Content\MainTheme.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\Controls\dateselector.js" />
+    <Content Include="Scripts\extensions.js" />
+    <Content Include="Scripts\jquery.jscrollpane.min.js" />
+    <Content Include="Scripts\jquery.mousewheel.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery\jquery-1.4.4.js" />
+    <Content Include="Scripts\jquery\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\jquery\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\jquery\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery\jquery.validate.js" />
+    <Content Include="Scripts\jquery\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery\jquery-ui.js" />
+    <Content Include="Scripts\jquery\jquery-ui.min.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TheaterBooking.Entities\TheaterBooking.Entities.csproj">
+      <Project>{E8957F2C-1D71-4C52-8596-1525308DCA32}</Project>
+      <Name>TheaterBooking.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TheaterBooking.Infrastructure\TheaterBooking.Infrastructure.csproj">
+      <Project>{1EC4E6B8-5107-49F8-9713-8BE6D122E3CD}</Project>
+      <Name>TheaterBooking.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Show\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_UserPanel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Show\Manage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShowTime\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShowTime\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_CC_DateSelector.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_CC_TimeSelector.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\SignIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reserve\Reserve.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\UnderConstruction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Show\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Salon\Manage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Salon\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Manage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Page\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Page\Manage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Page\Show.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Page\Edit.cshtml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>64378</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

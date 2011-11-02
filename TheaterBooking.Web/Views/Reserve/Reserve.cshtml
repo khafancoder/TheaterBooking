@@ -1,0 +1,396 @@
+﻿@{
+    ViewBag.Title = "انتخاب روز - صندلی";
+    IEnumerable<SelectListItem> selectList = ViewBag.ShowTimesSelectList;
+    TheaterBooking.Entities.Show show = ViewBag.Show;
+
+    bool archiveMode = ViewBag.ArchiveMode;
+}
+@section Head
+{
+    <script src="@Url.Content("~/Scripts/jquery/jquery-ui.min.js")" type="text/javascript"></script>
+    <style>
+        .salon
+        {
+            direction: ltr;
+        }
+        .row
+        {
+            clear: both;
+            height: 40px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .seat
+        {
+            width: 25px;
+            height: 25px;
+            background-color: #ffffff;
+            margin-right: 5px;
+            display: inline-block;
+            line-height: 25px;
+            border: 1px solid #a2a2a2;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+        }
+        
+        .reserved
+        {
+            background-color: Red !important;
+        }
+        
+        .reserved:hover
+        {
+            background-color: Red !important;
+        }
+        
+        .owned
+        {
+            background-color: #99FF33 !important;
+        }
+        
+        .seat:hover
+        {
+            background-color: #DBFFB7;
+        }
+        a .seat
+        {
+            color: Black;
+            font-size: smaller;
+            font-weight: bold;
+        }
+        .seat a:hover
+        {
+            color: #ffcc00;
+        }
+        
+        .dialog
+        {
+            font-family: Tahoma;
+        }
+    </style>
+}
+<h2>
+    انتخاب روز - صندلی
+</h2>
+<p>
+    <i>(لطفا با انتخاب صندلی خالی در روز مورد نظرتان به مراکز فروش بلیط مراجعه فرمایید)</i>
+</p>
+@{
+    if (User.Identity.IsAuthenticated)
+    {  <p>
+        @{
+        if (archiveMode)
+        {
+            @Html.ActionLink("رزرو های فعال", "Reserve", new { Id = show.ItemId })
+        }
+        else
+        {
+            @Html.ActionLink("آرشیو رزرو ها", "Reserve", new { Id = show.ItemId, archive = true })
+        }
+        }
+    </p>
+    }
+}
+<div>
+    @Html.DropDownList("ShowTimesDropDown", selectList, new { style = "width:400px;" })
+    <a style="margin-right: 10px; text-decoration: none; font-size: smaller;" id="lnkRefresh"
+        href="javascript:void(0)">به روز رسانی</a>
+</div>
+<div style="margin-top: 50px;" id="seatSelector">
+</div>
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+    <div class="dialog" id="reserveDialog">
+        <div class="editor-label">
+            عنوان نمایش
+        </div>
+        <div class="editor-field">
+            @(show.Title)
+        </div>
+        <div class="editor-label">
+            زمان و مکان اجرا
+        </div>
+        <div class="editor-field">
+            <span id="lblReserveShowtime"></span>
+        </div>
+        <div class="editor-label">
+            مشخصات صندلی
+        </div>
+        <div class="editor-field">
+            ردیف <span id="lblReserveSeatRow"></span>/ صندلی <span id="lblReserveSeatCol"></span>
+        </div>
+        @{using (Ajax.BeginForm("Reserve", new AjaxOptions()
+          {
+              HttpMethod = "POST",
+              OnComplete = "reserve_onComplete"
+          }))
+          {
+            @Html.Hidden("ShowTimeId")
+            @Html.Hidden("SeatRow")
+            @Html.Hidden("SeatCol")
+
+            <div class="editor-label">
+                توضیحات
+            </div>
+            <div class="editor-field">
+                @Html.TextArea("ReserveInfo", new { style = "width: 100%;" })
+            </div>
+            <ul class="controlButtonsSet">
+                <li><a href="javascript:void(0)" id="lnkReserve">تایید و رزرو</a></li>
+            </ul>
+          }
+        }
+    </div>
+    
+    <div class="dialog" id="unreserveDialog">
+        <div class="editor-label">
+            عنوان نمایش
+        </div>
+        <div class="editor-field">
+            @(show.Title)
+        </div>
+        <div class="editor-label">
+            زمان و مکان اجرا
+        </div>
+        <div class="editor-field">
+            <span id="lblReserveShowtime"></span>
+        </div>
+        <div class="editor-label">
+            مشخصات صندلی
+        </div>
+        <div class="editor-field">
+            ردیف <span id="lblReserveSeatRow"></span>/ صندلی <span id="lblReserveSeatCol"></span>
+        </div>
+        <div class="editor-label">
+            توضیحات
+        </div>
+        <div class="editor-field">
+            <span id="lblReserveInfo"></span>
+        </div>
+        @{using (Ajax.BeginForm("Unreserve", new AjaxOptions()
+          {
+              HttpMethod = "POST",
+              OnComplete = "unreserve_onComplete"
+          }))
+          {
+            @Html.Hidden("ReservationId")
+            <ul class="controlButtonsSet">
+                <li><a href="javascript:void(0)" id="lnkUnReserve">حذف رزرو</a></li>
+            </ul>
+ 
+          }
+        }
+    </div>
+    }
+}
+<script type="text/javascript">
+    $(function () {
+      
+        $("#lnkRefresh").Iconize("ui-icon-arrowrefresh-1-w");
+        $("#lnkReserve").Iconize("ui-icon-check");  
+        $("#lnkUnReserve").Iconize("ui-icon-trash");
+        $("#lnkReserve").click(function()
+        {
+            $($(this).parents("form")[0]).submit();
+        });
+        $("#lnkUnReserve").click(function()
+        {
+            $($(this).parents("form")[0]).submit();
+        });
+
+        $("#reserveDialog").dialog({autoOpen:false, width:400, title: "رزرو جا"});
+        $("#unreserveDialog").dialog({autoOpen:false, width:400, title: "لغو رزور"});
+
+        var drpShowTimes = $("#ShowTimesDropDown");
+        updateStatus();
+
+
+        $("#lnkRefresh").click(function()
+        {
+            updateStatus();
+        });
+
+        drpShowTimes.change(function()
+        {
+            updateStatus();
+        });
+    });
+    
+    var userSignedIn = @(User.Identity.IsAuthenticated.ToString().ToLower());
+    var currentUsername = "@(User.Identity.Name)";
+    var currentUserIsAdmin = @(Roles.IsUserInRole(User.Identity.Name, "admin").ToString().ToLower());
+    
+    function updateStatus()
+    {
+        var showtime = $.parseJSON($("#ShowTimesDropDown").val());
+        loadReservationPanel(showtime.ShowTimeId,showtime.SalonId);
+    }
+
+    function loadReservationPanel(showTimeId, salonId)
+    {
+        var seatLayoutURL = "@(Url.Action("GetSeatLayout", "Salon", new { Id = "__param" }))";
+        var reservedSeatsURL = "@(Url.Action("ReservedSeats", "Reserve", new { ShowTimeId = "__param" }))";
+        seatLayoutURL = seatLayoutURL.replace(/__param/gi,salonId);
+        reservedSeatsURL = reservedSeatsURL.replace(/__param/gi,showTimeId);
+            
+            
+        //get salon's seat layout
+        var seatRows =  
+            $.parseJSON(
+                $.ajax({
+                        url: seatLayoutURL,
+                        data:  "nocache=" + Math.random(),
+                        async:false
+                        }).responseText);
+            
+
+        //get reserved seats position & info
+        var reservedSeats =  
+            $.parseJSON(
+                $.ajax({
+                        url: reservedSeatsURL,
+                        data:  "nocache=" + Math.random(),
+                        async:false
+                        }).responseText);
+            
+
+        var container = $("#seatSelector");
+        container.empty();
+
+        var salonDiv = $("<div class='salon'></div>");
+        container.append(salonDiv);
+
+            
+        for (var i = 0; i < seatRows.length; i++)
+        {
+            var rowDiv = $("<div class='row'></div>");
+            for (var j = 1; j <= seatRows[i]; j++)
+            {
+                var seatDiv = $("<div class='seat'></div>");
+                seatDiv.text(j);
+                var preReserved = findReservation(reservedSeats,i+1,j);
+                if (preReserved)
+                {
+                    if ((preReserved.Username == currentUsername) || (currentUserIsAdmin == true))
+                    {
+                        if (preReserved.Username == currentUsername)
+                        {
+                            seatDiv.addClass("owned");
+                            seatDiv.attr("title", "رزرو شده توسط شما");
+                        }
+                        else
+                        {
+                            seatDiv.addClass("reserved");
+                            seatDiv.attr("title", preReserved.Username + " رزرو شده توسط ");
+                        }
+                         
+                        var seatLink = $("<a href='javascript:void(0)'></a>");
+                        seatLink.attr("data-x",i+1);
+                        seatLink.attr("data-y",j);
+                        seatLink.attr("data-reservationid",preReserved.ReservationId);
+
+                        seatLink.append(seatDiv);
+                        seatLink.click(ownseat_onClick);
+                        rowDiv.append(seatLink);
+                    }
+                    else
+                    {
+                        seatDiv.addClass("reserved");
+                        if (userSignedIn)
+                            seatDiv.attr("title", preReserved.Username + " رزرو شده توسط ");
+                        else
+                            seatDiv.attr("title", "رزرو شده ");
+
+                        rowDiv.append(seatDiv);
+                    }
+                }
+                else
+                {
+                    var seatLink = $("<a href='javascript:void(0)'></a>");
+                    seatLink.attr("data-x",i+1);
+                    seatLink.attr("data-y",j);
+                    seatLink.append(seatDiv);
+                    if (userSignedIn)
+                        seatLink.click(seat_onClick);
+
+                    seatLink.attr("title", " ردیف" + (i + 1) + " , صندلی " + j);
+                    rowDiv.append(seatLink);
+                }
+            }
+            salonDiv.append(rowDiv);
+        }
+    }
+
+    function findReservation(reservationList, seatRow, seatCol)
+    {
+        for (var i = 0; i < reservationList.length; i++)
+        {
+            if ((reservationList[i].Row == seatRow) && (reservationList[i].Column == seatCol))
+                return reservationList[i];
+        }
+
+        return null;
+    }
+    
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+<text>
+    function seat_onClick() 
+    {
+        var reserveDialog =  $("#reserveDialog");
+        reserveDialog.find("#lblReserveShowtime").text($("#ShowTimesDropDown").find("option:selected").text());
+        reserveDialog.find("#lblReserveSeatRow").text($(this).attr("data-x"));
+        reserveDialog.find("#lblReserveSeatCol").text($(this).attr("data-y"));
+        reserveDialog.find("#SeatRow").val($(this).attr("data-x"));
+        reserveDialog.find("#SeatCol").val($(this).attr("data-y"));
+        reserveDialog.find("#ShowTimeId").val($.parseJSON($("#ShowTimesDropDown").val()).ShowTimeId);
+
+        reserveDialog.dialog("open");
+    }  
+    
+    function ownseat_onClick() 
+    {
+        var reservationId = $(this).attr("data-reservationid");
+        var getReserveURL = "@(Url.Action("Get", "Reserve", new { Id = "__param" }))";
+        getReserveURL = getReserveURL.replace(/__param/gi,reservationId);
+        var lnk = $(this);
+
+        $.ajax({
+            url: getReserveURL,
+            data:  "nocache=" + Math.random(),
+            success: function(data)
+                    {
+                        var unreserveDialog = $("#unreserveDialog");
+                        unreserveDialog.find("#lblReserveShowtime").text($("#ShowTimesDropDown").find("option:selected").text());
+                        unreserveDialog.find("#lblReserveSeatRow").text(lnk.attr("data-x"));
+                        unreserveDialog.find("#lblReserveSeatCol").text(lnk.attr("data-y"));
+                        unreserveDialog.find("#ReservationId").val(data.ReservationId);
+                        unreserveDialog.find("#lblReserveInfo").text(data.ReservationInfo);
+
+                        unreserveDialog.dialog("open");  
+                    }
+            });
+    }
+    
+
+    function reserve_onComplete()
+    {
+        updateStatus();
+            
+        $("#reserveDialog").dialog("close");
+        $("#reserveDialog").find("input, textarea").val("");
+    }
+
+    function unreserve_onComplete()
+    {
+        updateStatus();
+            
+        $("#unreserveDialog").dialog("close");
+    }
+</text>
+    }
+}
+</script>

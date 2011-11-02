@@ -1,0 +1,47 @@
+﻿@{ 
+    System.Web.Routing.RouteValueDictionary parameters = new System.Web.Routing.RouteValueDictionary(Model);
+    string fieldName = parameters["Name"].ToString();
+
+    int StartYear = Convert.ToInt32(parameters["StartYear"]);
+    int EndYear = Convert.ToInt32(parameters["EndYear"]);
+    string[] Months = (string[])parameters["Months"];
+
+    string currentCulture = parameters["CurrentCulture"].ToString();
+    string convertorUrl = parameters["ConvertorURL"].ToString();
+    string daysInMonthUrl = parameters["DaysInMonthURL"].ToString();
+}
+@{
+    if (ViewContext.TempData["DateSelectorScriptsIncluded"] == null)
+    { 
+    <script src="@Url.Content("~/Scripts/Controls/dateselector.js")" type="text/javascript"></script>
+        ViewContext.TempData["DateSelectorScriptsIncluded"] = true;
+    }
+}
+<div class="ds_ptr_container" data-currentculture="@currentCulture" data-convertorurl="@convertorUrl" data-daysinmonthurl="@daysInMonthUrl">
+    <select class="ds_ptr_year" style="width: 60px;">
+        @{
+            for (int i = StartYear; i <= EndYear; i++)
+            {
+            <option>@i.ToString()</option>
+            }
+        }
+    </select>
+    <select class="ds_ptr_month" style="width: 80px;">
+        @{
+            for (int i = 0; i < Months.Length - 1; i++)
+            {
+            <option value="@(i + 1)">@Months[i]</option>       
+            }
+        }
+    </select>
+    <select class="ds_ptr_day" style="width: 50px;">
+        @{
+            for (int i = 1; i <= 31; i++)
+            {
+            <option>@i.ToString()</option>
+            }
+        }
+    </select>
+    <img class="ds_ptr_loading" style="display:none;" src="@Url.Content("~/Content/images/ajax-loader.gif")" />
+    <input type="hidden" name="@fieldName" id="@fieldName" class="ds_ptr_value" />
+</div>

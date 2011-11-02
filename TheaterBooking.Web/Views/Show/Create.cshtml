@@ -1,0 +1,72 @@
+﻿@model TheaterBooking.Entities.Show
+@{
+    ViewBag.Title = "ثبت نمایش جدید";
+}
+@section Head
+{
+    <script src="@Url.Content("~/ckeditor/ckeditor.js")" type="text/javascript"></script>
+}
+<script type="text/javascript">
+    var customToolbar;
+
+    $(function () {
+
+        customToolbar =
+        [
+	        ['Source'],
+            ['JustifyRight', 'JustifyCenter', 'JustifyLeft', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'],
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+	        ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']
+        ];
+    });
+
+</script>
+<h2>
+    ثبت نمایش جدید</h2>
+<div>
+    @{
+        using (Html.BeginForm())
+        {
+        @Html.ValidationSummary(true)
+
+        <div class="editor-label">
+            عنوان نمایش
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(o => o.Title, new { style = "width:350px" })
+        </div>
+        <div class="editor-label">
+            تصویر پوستر
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(o => o.ImageUrl, new { style = "width:350px" })
+        </div>
+        <div class="editor-label">
+            اطلاعات نمایش
+        </div>
+        <div class="editor-field">
+            @Html.CKTextBox("Description", "", "height:180,toolbar:customToolbar,uiColor : '#DFD5AA'")
+        </div>
+        <ul class="controlButtonsSet">
+            <li><a href="javascript:void(0)" id="lnkCreate">ثبت نمایش</a></li>
+            <li>|</li>
+            <li><a href="@Url.Action("Manage")" id="lnkReturn">بازگشت</a></li>
+        </ul>
+        }
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#lnkCreate").click(function () {
+            $($(this).parents("form")[0]).submit();
+        });
+
+        $("#lnkCreate").Iconize("ui-icon-check");
+        $("#lnkReturn").Iconize("ui-icon-arrowreturnthick-1-w");
+
+    });
+</script>

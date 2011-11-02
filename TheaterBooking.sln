@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheaterBooking.Entities", "TheaterBooking.Entities\TheaterBooking.Entities.csproj", "{E8957F2C-1D71-4C52-8596-1525308DCA32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheaterBooking.Infrastructure", "TheaterBooking.Infrastructure\TheaterBooking.Infrastructure.csproj", "{1EC4E6B8-5107-49F8-9713-8BE6D122E3CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheaterBooking.Web", "TheaterBooking.Web\TheaterBooking.Web.csproj", "{E8EA5E5B-3A8D-403E-826E-ABF913C3D13C}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = TheaterBooking.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8957F2C-1D71-4C52-8596-1525308DCA32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8957F2C-1D71-4C52-8596-1525308DCA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8957F2C-1D71-4C52-8596-1525308DCA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8957F2C-1D71-4C52-8596-1525308DCA32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EC4E6B8-5107-49F8-9713-8BE6D122E3CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EC4E6B8-5107-49F8-9713-8BE6D122E3CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EC4E6B8-5107-49F8-9713-8BE6D122E3CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EC4E6B8-5107-49F8-9713-8BE6D122E3CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8EA5E5B-3A8D-403E-826E-ABF913C3D13C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8EA5E5B-3A8D-403E-826E-ABF913C3D13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8EA5E5B-3A8D-403E-826E-ABF913C3D13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8EA5E5B-3A8D-403E-826E-ABF913C3D13C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

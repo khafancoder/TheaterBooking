@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="TheaterBooking.Entities" assembly="TheaterBooking.Entities">
+  <class name="Salon,TheaterBooking.Entities" table="Salon">
+
+    <!-- Primary Key(s) -->
+    <id column="SalonId" name="SalonId" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <!-- Properties -->
+    <property name="Title" column="Title" type="String" not-null="true"/>
+    <property name="Address" column="Address" type="String" not-null="true"/>
+    <property name="Phone" column="Phone" type="String" not-null="true"/>
+
+    <bag name="SeatRows" table="SalonSeatLayout" cascade="save-update">
+      <key column="SalonId"/>
+      <many-to-many class="SalonSeatLayout" column="SalonSeatId"></many-to-many>
+    </bag>
+  </class>
+</hibernate-mapping>

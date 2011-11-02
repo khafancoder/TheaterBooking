@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="TheaterBooking.Entities" assembly="TheaterBooking.Entities">
+  <class name="ShowTime,TheaterBooking.Entities" table="ShowTime">
+
+    <!-- Primary Key(s) -->
+    <id column="ShowTimeId" name="ShowTimeId" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <!-- Properties -->
+    <many-to-one not-null="true" name="Salon" column="SalonId" class="Salon" fetch="join" cascade="save-update"/>
+    <many-to-one not-null="true" name="Show" column="ShowId" class="Show" fetch="join" cascade="save-update"/>
+
+    <property name="ShowDateTime" column="ShowDateTime" type="DateTime" not-null="true"/>
+    <property name="ShowDateSh" column="ShowDateSh" type="String" not-null="true"/>
+  </class>
+</hibernate-mapping>

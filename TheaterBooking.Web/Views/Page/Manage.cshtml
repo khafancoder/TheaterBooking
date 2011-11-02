@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TheaterBooking.Entities.DynamicPage>
+@{
+    ViewBag.Title = "مدیریت صفحات پویا";
+}
+<h2>
+    مدیریت صفحات پویا
+</h2>
+<div>
+    <ul class="controlButtonsSet">
+        <li><a href="@Url.Action("Create")" id="lnkAdd">صفحه جدید</a></li>
+    </ul>
+    <table class="defaultList">
+        <thead>
+            <tr>
+                <th style="width: 100px;">
+                    عنوان
+                </th>
+                <th style="width: 100px;">
+                    نام لاتین
+                </th>
+                <th style="width: 100px;">
+                    کلمات کلیدی
+                </th>
+                <th style="width: 50px;">
+                    روز رسانی
+                </th>
+                <th style="width: 50px;">
+                    تاریخ ایجاد
+                </th>
+                <th class="controlColumn">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{bool even = true;}
+            @foreach (var item in Model)
+            {
+                even = !even;
+                <tr class='@(even ? "alt" : "")'>
+                    <td>
+                        <b><a href="@Url.Action("Show", new { Id = item.Name })">@item.Title </a></b>
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Tags
+                    </td>
+                    <td>
+                        @item.LastUpdate.ToPersian()
+                    </td>
+                    <td>
+                        @item.CreationDate.ToPersian()
+                    </td>
+                    <td align="center">
+                        <a class="ptr_row_edit" href="@Url.Action("Edit", new { Id = @item.Name })">ویرایش</a>
+                        <a class="ptr_row_delete" href="@Url.Action("Delete", new { Id = @item.Name })">حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+
+        $("#lnkAdd").Iconize("ui-icon-plus");
+        $(".ptr_row_edit").Iconize("ui-icon-pencil");
+        $(".ptr_row_delete").Iconize("ui-icon-trash");
+
+        $(".ptr_row_delete").click(function () {
+            return (confirm(" آیا مطمئنید ؟"))
+        });
+    });
+</script>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TheaterBooking.Entities.ShowTime>
+@{
+    TheaterBooking.Entities.Show show = ViewBag.Show;
+
+    ViewBag.Title = "مدیریت زمان های اجرا";
+
+    WebGrid grid = new WebGrid(Model);   
+}
+<h2>
+    مدیریت زمان های اجرا برای @show.Title
+</h2>
+<ul class="controlButtonsSet">
+    <li><a href="@Url.Action("Create", new { Id = show.ShowId })" id="lnkAdd">اجرای جدید</a></li>
+    <li>|</li>
+    <li><a href="@Url.Action("Manage", "Show")" id="lnkReturn">بازگشت</a></li>
+</ul>
+@grid.GetHtml(
+    columns: grid.Columns
+    (
+        grid.Column(header: "سالن اجرا", format: @<text><b>@item.Salon.Title</b></text>),
+        grid.Column("ShowDateTime", "تاریخ", format: (dynamic item) => TheaterBooking.Web.DateHelper.ToFullPersian(item.ShowDateTime)),
+        grid.Column(header: "ساعت", format: @<text>@item.ShowDateTime.ToLongTimeString()</text>),
+        grid.Column(format: (item) => Html.ActionLink("حذف", "Delete", new { Id = item.ShowTimeId }, new { Class = "ptr_row_delete" }), style: "control")
+    ),
+    mode: WebGridPagerModes.Numeric,
+    headerStyle: "header",
+    footerStyle: "footer",
+    rowStyle: "row",
+    alternatingRowStyle: "altrow",
+    htmlAttributes: new { Class = "grid" })
+
+<script type="text/javascript">
+    $(function () {
+        $("#lnkAdd").Iconize("ui-icon-plus");
+        $("#lnkReturn").Iconize("ui-icon-arrowreturnthick-1-w");
+        $(".ptr_row_delete").Iconize("ui-icon-trash");
+
+        $(".ptr_row_delete").click(function () {
+            return (confirm("با حذف این اجرا کلیه طلاعات مربوط به رزرو صندلی های اجرای مورد نظر نیز از بین خواهد رفت، آیا مطمئنید ؟"))
+        });
+    });
+</script>

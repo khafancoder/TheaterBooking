@@ -1,0 +1,41 @@
+﻿@{
+    //bool userIsAuthenticated = true;
+    bool userIsAuthenticated = User.Identity.IsAuthenticated;
+}
+<div style="float: right;">
+    @if (userIsAuthenticated)
+    {
+        <div>
+            <ul id="tm-usermenu">
+                @if (Roles.IsUserInRole(Membership.GetUser().UserName, "admin"))
+                {
+                    <li>@Html.ActionLink("مدیریت نمایش ها", "Manage", "Show")</li>
+                    <li>|</li>
+                    <li>@Html.ActionLink("مدیریت سالن ها", "Manage", "Salon")</li>
+                    <li>|</li>
+                    <li>@Html.ActionLink("مدیریت کاربران", "Manage", "Account")</li>  
+                    <li>|</li>
+                    <li>@Html.ActionLink("مدیریت صفحات", "Manage", "Page")</li>
+                  
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                }
+                <li>@Html.ActionLink("خروج", "SignOut", "Account") &nbsp;&nbsp;(@User.Identity.Name)</li>
+                <li>|</li>
+                <li>@Html.ActionLink("تغییر کلمه عبور", "ChangePassword", "Account")</li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        using (Html.BeginForm("SignIn", "Account"))
+        {
+        <text> نام کاربری :</text>
+        <input style="width: 100px; margin-left: 15px;" type="text" name="Username" />
+        <text> کلمه عبور :</text>
+        <input style="width: 100px; margin-left: 10px;" type="password" name="Password" />
+        <input class="themedButton" type="submit" value="ورود" />
+        }
+    }
+</div>

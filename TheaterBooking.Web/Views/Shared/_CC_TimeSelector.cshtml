@@ -1,0 +1,46 @@
+﻿@{ 
+    System.Web.Routing.RouteValueDictionary parameters = new System.Web.Routing.RouteValueDictionary(Model);
+    string fieldName = parameters["Name"].ToString();
+}
+@{
+    
+    if (TempData["TimeSelectorScriptsIncluded"] == null)
+    {
+        
+    <script type="text/javascript">
+        $(function () {
+
+            $(".ts_ptr_hour, .ts_ptr_minute").change(function () {
+                var container = $(this).parents(".ts_ptr_container");
+                var selectedTime = container.find(".ts_ptr_hour").val() + ":" + container.find(".ts_ptr_minute").val() + ":" + "00";
+
+                container.find(".ts_ptr_value").val(selectedTime);
+            });
+        });
+    </script>
+    
+        TempData["TimeSelectorScriptsIncluded"] = true;
+    }
+}
+
+
+<div class="ts_ptr_container">
+    <select class="ts_ptr_hour" style="width: 50px;">
+        @{
+            for (int i = 0; i < 24; i++)
+            {
+            <option>@(string.Format("{0:00}", i))</option>
+            }
+        }
+    </select>
+    :
+    <select class="ts_ptr_minute" style="width: 50px;">
+        @{
+            for (int i = 0; i < 60; i++)
+            {
+            <option>@(string.Format("{0:00}", i))</option>    
+            }
+        }
+    </select>
+    <input type="hidden" name="@fieldName" id="@fieldName" class="ts_ptr_value" />
+</div>

@@ -1,0 +1,63 @@
+﻿@model TheaterBooking.Web.ViewModels.CreateUserModel
+@{
+    ViewBag.Title = "کاربر جدید";
+}
+<h2>
+    اضافه نمودن کاربر جدید</h2>
+<div>
+    @using (Html.BeginForm("Create"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="editor-label">
+            نام کاربری
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.UserName)
+        </div>
+        <div class="editor-label">
+            کلمه عبور
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(m => m.Password)
+           &nbsp;&nbsp; <i>کلمه عبور باید حداقل  @ViewBag.PasswordLength حرف باشد</i>
+        </div>   
+        <div class="editor-label">
+            تکرار کلمه عبور
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(m => m.ConfirmPassword)
+        </div>     
+        <div class="editor-label">
+            پست الکترونیک
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Email)
+        </div>     
+        <div class="editor-label">
+            دارای سطح دسترسی ادمین ؟
+        </div>
+        <div class="editor-field">
+            <div class="unclearable">
+                @Html.CheckBoxFor(m => m.IsAdmin)
+            </div>
+        </div> 
+              
+        <ul class="controlButtonsSet">
+            <li><a href="javascript:void(0)" id="lnkCreate">تایید</a></li>
+            <li>|</li>
+            <li><a href="@Url.Action("Manage")" id="lnkReturn">بازگشت</a></li>
+        </ul>  
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#lnkCreate").click(function () {
+            $($(this).parents("form")[0]).submit();
+        });
+
+        $("#lnkCreate").Iconize("ui-icon-check");
+        $("#lnkReturn").Iconize("ui-icon-arrowreturnthick-1-w");
+
+    });
+</script>

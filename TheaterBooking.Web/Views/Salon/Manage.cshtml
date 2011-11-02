@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TheaterBooking.Entities.Salon>
+@{
+    ViewBag.Title = "مدیریت سالن ها";
+}
+<h2>
+    مدیریت سالن ها
+</h2>
+<div>
+    <ul class="controlButtonsSet">
+        <li><a href="@Url.Action("Create")" id="lnkAdd">سالن جدید</a></li>
+    </ul>
+    <table class="defaultList">
+        <thead>
+            <tr>
+                <th style="width: 300px;">
+                    نام سالن
+                </th>
+                <th style="width: 100px;">
+                    تلفن
+                </th>
+                <th style="width: 100px;">
+                    آدرس
+                </th>
+                <th class="controlColumn">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{bool even = true;}
+            @foreach (var item in Model)
+            {
+                even = !even;
+                <tr class='@(even ? "alt" : "")'>
+                    <td>
+                        <b>@item.Title
+                        </b>
+                    </td>
+                    <td>
+                        @(item.Phone)
+                    </td>
+                    <td>
+                        @item.Address
+                    </td>
+                    <td align="center">
+                        <a class="ptr_row_edit" href="@Url.Action("Edit", new { Id = @item.ItemId })">ویرایش</a>
+                        <a class="ptr_row_delete" href="@Url.Action("Delete", new { Id = @item.ItemId })">حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+
+        $("#lnkAdd").Iconize("ui-icon-plus");
+        $(".ptr_row_edit").Iconize("ui-icon-pencil");
+        $(".ptr_row_delete").Iconize("ui-icon-trash");
+
+        $(".ptr_row_delete").click(function () {
+            return (confirm("با حذف این سالن کلیه طلاعات رزرو مربوط به سالن مورد نظر نیز از بین میرود، آیا مطمئنید ؟"))
+        });
+    });
+</script>

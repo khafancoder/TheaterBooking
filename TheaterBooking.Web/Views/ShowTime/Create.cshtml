@@ -1,0 +1,95 @@
+﻿@{
+    TheaterBooking.Entities.Show show = ViewBag.Show;
+    IEnumerable<TheaterBooking.Entities.Salon> salons = ViewBag.Salons;
+    ViewBag.Title = "ثبت زمان اجرای جدید";
+}
+<h2>
+    ثبت زمان اجرای جدید برای : @show.Title</h2>
+<div style="padding:5px;background-color:#D3D1ED">
+    <input type="radio" id="optSingle" name="addMode" checked="checked">ثبت یک اجرا</input>
+    <input type="radio" id="optRepeted" name="addMode">ثبت چندین اجرا به طور خودکار</input>
+</div>
+<div id="singleModePanel">
+    @{ using (Html.BeginForm("CreateSingle", "ShowTime"))
+       {
+        @Html.Hidden("ShowId", (int)ViewBag.Show.ShowId)
+        <div class="editor-label">
+            سالن
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SalonId", new SelectList(salons, "ItemId", "Title"), new { style = "width:200px;" })
+        </div>
+        <div class="editor-label">
+            زمان اجرا
+        </div>
+        <div class="editor-field">
+            @Html.DateSelector("fa-IR", "Date", 0, 10) &nbsp;&nbsp;&nbsp; @Html.TimeSelector("Time")
+        </div>
+        <ul class="controlButtonsSet">
+            <li><a href="javascript:void(0)" id="lnkCreateSingle">تایید</a></li>
+            <li>|</li>
+            <li><a href="@Url.Action("List", new { Id = show.ItemId })" id="lnkReturn2">بازگشت</a></li>
+        </ul>
+       } }
+</div>
+<div id="repeatedModePanel" style="display: none;">
+    @{ using (Html.BeginForm("CreateRepeated", "ShowTime"))
+       {
+        @Html.Hidden("ShowId", (int)ViewBag.Show.ShowId)
+        <div class="editor-label">
+            سالن
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SalonId", new SelectList(salons, "ItemId", "Title"), new { style = "width:200px;" })
+        </div>
+        <div class="editor-label">
+            تاریخ آغازین
+        </div>
+        <div class="editor-field">
+            @Html.DateSelector("fa-IR", "StartDate", 0, 10)
+        </div>
+        <div class="editor-label">
+            تاریخ پایانی
+        </div>
+        <div class="editor-field">
+            @Html.DateSelector("fa-IR", "EndDate", 0, 10)
+        </div>
+        <div class="editor-label">
+            زمان اجرا
+        </div>
+        <div class="editor-field">
+            @Html.TimeSelector("Time")
+        </div>
+        
+        <ul class="controlButtonsSet">
+            <li><a href="javascript:void(0)" id="lnkCreateRepeated">تایید</a></li>
+            <li>|</li>
+            <li><a href="@Url.Action("List", new { Id = show.ItemId })" id="lnkReturn2">بازگشت</a></li>
+        </ul>
+       }
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#lnkCreateSingle").click(function () {
+            $($(this).parents("form")[0]).submit();
+        });
+        $("#lnkCreateRepeated").click(function () {
+            $($(this).parents("form")[0]).submit();
+        });
+
+        $("#lnkCreateSingle").Iconize("ui-icon-check");
+        $("#lnkCreateRepeated").Iconize("ui-icon-check");
+        $("#lnkReturn1").Iconize("ui-icon-arrowreturnthick-1-w");
+        $("#lnkReturn2").Iconize("ui-icon-arrowreturnthick-1-w");
+
+        $("#optSingle").change(function () {
+            $("#repeatedModePanel").hide();
+            $("#singleModePanel").show();
+        });
+        $("#optRepeted").change(function () {
+            $("#singleModePanel").hide();
+            $("#repeatedModePanel").show();
+        });
+    });
+</script>

@@ -1,0 +1,32 @@
+﻿@model TheaterBooking.Entities.DynamicPage
+@{
+    ViewBag.Title = Model.Title;
+}
+@section Head
+{
+    <style>
+        .page
+        {
+        }
+        
+        .page .text
+        {
+        	min-height:450px;
+        }
+        
+        .page .tags
+        {
+            font-size: smaller;
+            color: #c2c2c2;
+        }
+    </style>
+}
+<div class="page">
+    <h2>@Model.Title</h2>
+    <div class="text">
+        @Html.Raw(Model.Text)
+    </div>
+    <div class="tags">
+        @Model.Tags
+    </div>
+</div>

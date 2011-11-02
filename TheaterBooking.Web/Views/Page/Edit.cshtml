@@ -1,0 +1,88 @@
+﻿@model TheaterBooking.Entities.DynamicPage
+@{
+    ViewBag.Title = "ویرایش صفحه";
+}
+@section Head
+{
+    <script src="@Url.Content("~/ckeditor/ckeditor.js")" type="text/javascript"></script>
+}
+<script type="text/javascript">
+    var customToolbar;
+
+    $(function () {
+
+        customToolbar =
+        [
+	        ['Source'],
+            ['JustifyRight', 'JustifyCenter', 'JustifyLeft', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'],
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+	        ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']
+        ];
+    });
+
+</script>
+<h2>
+    ویرایش صفحه : @Model.Title
+</h2>
+<div>
+    @{
+        using (Html.BeginForm())
+        {
+        @Html.ValidationSummary(true)
+
+        <div class="editor-label">
+            عنوان
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(o => o.Title, new { style = "width:300px" })
+        </div>
+        <div class="editor-label">
+            نام لاتین
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(o => o.Name, new { style = "width:300px", Disabled = "Disabled", Class = "ReadonlyInput" })
+        </div>
+        <div class="editor-label">
+            کلمات کلیدی
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(o => o.Tags, new { style = "width:300px" })
+        </div>
+        <div class="editor-label">
+            خلاصه
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(o => o.Summary, new { style = "width:98%" })
+        </div>
+         
+        <div class="editor-label">
+            محتوای صفحه
+        </div>
+        <div class="editor-field">
+            @Html.CKTextBox("Text", @Model.Text, "height:300,toolbar:customToolbar,uiColor : '#DFD5AA'")
+        </div>
+      
+        
+        <ul class="controlButtonsSet">
+            <li><a href="javascript:void(0)" id="lnkEdit">تایید</a></li>
+            <li>|</li>
+            <li><a href="@Url.Action("Manage")" id="lnkReturn">بازگشت</a></li>
+        </ul>
+        }
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#lnkEdit").click(function () {
+            $($(this).parents("form")[0]).submit();
+        });
+
+        $("#lnkEdit").Iconize("ui-icon-check");
+        $("#lnkReturn").Iconize("ui-icon-arrowreturnthick-1-w");
+
+    });
+</script>

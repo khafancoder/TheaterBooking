@@ -1,0 +1,51 @@
+﻿@model TheaterBooking.Entities.Salon
+@{
+    ViewBag.Title = "سالن جدید";
+}
+<h2>
+    اضافه نمودن سالن جدید</h2>
+<div>
+    @{
+        using (Html.BeginForm())
+        {
+        <div class="editor-label">
+            نام سالن
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(o => o.Title, new { style = "width:150px" })
+        </div>
+        <div class="editor-label">
+            تلفن تماس
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(o => o.Phone, new { style = "width:150px" })
+        </div>
+        <div class="editor-label">
+            آدرس
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(o => o.Address, new { style = "width:300px" })
+        </div>
+        @*
+        <input type="text" name="seatsLayoutArray" id="seatsLayoutArray" value=" " />*@
+        
+        
+        <ul class="controlButtonsSet">
+            <li><a href="javascript:void(0)" id="lnkCreate">تایید</a></li>
+            <li>|</li>
+            <li><a href="@Url.Action("Manage")" id="lnkReturn">بازگشت</a></li>
+        </ul>
+        }
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#lnkCreate").click(function () {
+            $($(this).parents("form")[0]).submit();
+        });
+
+        $("#lnkCreate").Iconize("ui-icon-check");
+        $("#lnkReturn").Iconize("ui-icon-arrowreturnthick-1-w");
+
+    });
+</script>
